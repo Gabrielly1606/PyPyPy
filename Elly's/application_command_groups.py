@@ -28,7 +28,7 @@ def run():
         await interaction.response.send_message(f"Ciao! {interaction.user.mention}")
         
     
-       
+    #Olá meu novo codigo
            
     bot.run(settings.DISCORD_API_SECRET, root_logger=True)
 
