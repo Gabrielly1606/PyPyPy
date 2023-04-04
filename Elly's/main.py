@@ -4,7 +4,7 @@ from discord.ext import commands
 
 id_do_servidor = 1089260593954967553
 id_cargo_atendente = 1089374159060082759
-token_bot = "MTA4OTI3Nzc3MjYyMDM3MDA0Mg.GIS29D.yQmy92siT01SUmm5N17yS2sqN1pmsJ5o5c8Bds"
+token_bot = "MeuTokken"
 
 class Dropdown(discord.ui.Select):
     def __init__(self):
