@@ -1,0 +1,48 @@
+# Ignore compiled Python files
+*.pyc
+
+# Ignore the config.json file
+config.json
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDEs and editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Other
+*.pyproj
+*.egg-info/
+*.egg-info/PKG-INFO
+*.egg-info/SOURCES.txt
+*.egg-info/dependency_links.txt
+*.egg-info/top_level.txt
+.coverage
+htmlcov/
+*.lock
+*.DS_Store
+*.pytest_cache

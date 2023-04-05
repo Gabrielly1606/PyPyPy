@@ -1,10 +1,25 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
+import json
+import os
 
+filename = "config.json"
+
+if not os.path.isfile(filename):
+    print("File does not exist, creating file...")
+    config = {"token_bot": "MeuTokken"}
+    with open(filename, "w") as f:
+        json.dump(config, f, indent=4)
+    token_bot = "MeuTokken"
+else:
+    with open(filename, "r") as f:
+        config = json.load(f)
+    token_bot = config["token_bot"]
+    print(f"Retrieved token_bot value from {filename}: {token_bot}")
+    
 id_do_servidor = 1089260593954967553
 id_cargo_atendente = 1089374159060082759
-token_bot = "MeuTokken"
 
 class Dropdown(discord.ui.Select):
     def __init__(self):
