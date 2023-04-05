@@ -21,7 +21,7 @@ class Dropdown(discord.ui.Select):
         )
     async def callback(self, interaction: discord.Interaction):
         if self.values[0] == "ajuda":
-            await interaction.response.send_message("Se você precisar de ajuda, coloque nos comentários do vídeo",ephemeral=True)
+            await interaction.response.send_message("Se você precisar de ajuda",ephemeral=True)
         elif self.values[0] == "atendimento":
             await interaction.response.send_message("Clique abaixo para criar um ticket",ephemeral=True,view=CreateTicket())
 
