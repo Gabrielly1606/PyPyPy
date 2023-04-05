@@ -14,7 +14,7 @@ class User:
         self.level = 1
 
     def to_dict(self):
-        return {"id": self.id, "name": self.name, "exp": self.exp}
+        return {"id": self.id, "name": self.name, "exp": self.exp, "level": self.level}
 
 # Define a function to load users from the "database"
 def load_users():
@@ -29,7 +29,7 @@ def load_users():
 def save_users(users):
     with open(os.path.join(db_path, "users.json"), "w") as f:
         data = [u.to_dict() for u in users]
-        json.dump(data, f, indent=4)
+        json.dump(data, f)
 
 # Define a route to return all users
 @app.route("/api/users", methods=["GET"])
