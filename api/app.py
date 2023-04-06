@@ -18,7 +18,7 @@ class User:
         self.level = level
 
     def to_dict(self):
-        level =  RPGFormulas.calculate_level(self.exp, 1.5, 100) #self.exp // 100
+        level =  RPGFormulas.calculate_level(self.exp, 1, 100) #self.exp // 100
         return {"id": self.id, "name": self.name, "exp": self.exp, "level": level}
 
 # Define a function to load users from the "database"

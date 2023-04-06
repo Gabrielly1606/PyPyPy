@@ -2,7 +2,10 @@ from PIL import Image, ImageDraw, ImageFont
 
 class ImageGenerator:
     def __init__(self, text):
-        self.text = text
+        if text:
+            self.text = text
+        else:
+            self.text = ""
 
     def generate_image(self):
         img = Image.new('RGB', (400, 200), color = (73, 109, 137))
