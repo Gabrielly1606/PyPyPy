@@ -1,7 +1,5 @@
 import discord
-import CreateTicket
-import DropdownView
-import Dropdown
+from CreateTicket import CreateTicket
 
 class Dropdown(discord.ui.Select):
     def __init__(self):
@@ -16,6 +14,7 @@ class Dropdown(discord.ui.Select):
             options=options,
             custom_id="persistent_view:dropdown_help"
         )
+
     async def callback(self, interaction: discord.Interaction):
         if self.values[0] == "ajuda":
             await interaction.response.send_message("Se você precisar de ajuda",ephemeral=True)

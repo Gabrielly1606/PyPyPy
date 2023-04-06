@@ -1,14 +1,14 @@
 import discord
-import CreateTicket
-import Dropdown
+from Dropdown import Dropdown
 from DropdownView import DropdownView
+from CreateTicket import CreateTicket
 from discord import app_commands
 from discord.ext import commands
 import json
 import os
+import requests
 
 filename = "config.json"
-
 if not os.path.isfile(filename):
     print("File does not exist, creating file...")
     config = {"token_bot": "MeuTokken"}
@@ -23,6 +23,70 @@ else:
     
 id_do_servidor = 1089260593954967553
 id_cargo_atendente = 1089374159060082759
+
+class Dropdown(discord.ui.Select):
+    def __init__(self):
+        options = [
+            discord.SelectOption(value="ajuda",label="Ajuda", emoji="👋"),
+            discord.SelectOption(value="atendimento",label="Atendimento", emoji="📨"),
+        ]
+        super().__init__(
+            placeholder="Selecione uma opção...",
+            min_values=1,
+            max_values=1,
+            options=options,
+            custom_id="persistent_view:dropdown_help"
+        )
+    async def callback(self, interaction: discord.Interaction):
+        if self.values[0] == "ajuda":
+            await interaction.response.send_message("Se você precisar de ajuda",ephemeral=True)
+        elif self.values[0] == "atendimento":
+            await interaction.response.send_message("Clique abaixo para criar um ticket",ephemeral=True,view=CreateTicket())
+
+class DropdownView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+
+        self.add_item(Dropdown())
+
+class CreateTicket(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=300)
+        self.value=None
+
+    @discord.ui.button(label="Abrir Ticket",style=discord.ButtonStyle.blurple,emoji="➕")
+    async def confirm(self,interaction: discord.Interaction, button: discord.ui.Button):
+        self.value = True
+        self.stop()
+
+        ticket = None
+        for thread in interaction.channel.threads:
+            if f"{interaction.user.id}" in thread.name:
+                if thread.archived:
+                    ticket = thread
+                else:
+                    await interaction.response.send_message(ephemeral=True,content=f"Você já tem um atendimento em andamento!")
+                    return
+
+        async for thread in interaction.channel.archived_threads(private=True):
+            if f"{interaction.user.id}" in thread.name:
+                if thread.archived:
+                    ticket = thread
+                else:
+                    await interaction.edit_original_response(content=f"Você já tem um atendimento em andamento!",view=None)
+                    return
+        
+        if ticket != None:
+            await ticket.edit(archived=False,locked=False)
+            await ticket.edit(name=f"{interaction.user.name} ({interaction.user.id})",auto_archive_duration=10080,invitable=False)
+        else:
+            ticket = await interaction.channel.create_thread(name=f"{interaction.user.name} ({interaction.user.id})",auto_archive_duration=10080)#,type=discord.ChannelType.public_thread)
+            await ticket.edit(invitable=False)
+
+        await interaction.response.send_message(ephemeral=True,content=f"Criei um ticket para você! {ticket.mention}")
+        await ticket.send(f"📩  **|** {interaction.user.mention} ticket criado! Envie todas as informações possíveis sobre seu caso e aguarde até que um atendente responda.\n\nApós a sua questão ser sanada, você pode usar `/fecharticket` para encerrar o atendimento!")
+
+
 
 class client(discord.Client):
     def __init__(self):
@@ -52,10 +116,27 @@ async def setup(interaction: discord.Interaction):
 @tree.command(guild = discord.Object(id=id_do_servidor), name="fecharticket",description='Feche um atendimento atual.')
 async def _fecharticket(interaction: discord.Interaction):
     mod = interaction.guild.get_role(id_cargo_atendente)
-    if str(interaction.user.id) in interaction.channel.name or mod in interaction.author.roles:
+    if str(interaction.user.id) in interaction.channel.name or mod in interaction.user.roles:
         await interaction.response.send_message(f"O ticket foi arquivado por {interaction.user.mention}, obrigado por entrar em contato!")
         await interaction.channel.edit(archived=True,locked=True)
     else:
         await interaction.response.send_message("Isso não pode ser feito aqui...")
+        
+@tree.command(guild = discord.Object(id=id_do_servidor), name="perfil",
+              description='Olhar o perfil.')
+async def _getProfille(interaction: discord.Interaction):
+    url = "http://127.0.0.1:5000/api/users"
+    response = requests.get(url)
+    response.json()
+    await interaction.response.send_message(response.json())
 
+@tree.command(guild = discord.Object(id=id_do_servidor), name="criarperfil",
+              description='cria um perfil.')
+async def _create_user(interaction: discord.Interaction):
+    url = "http://127.0.0.1:5000/api/users"
+    data = {"name": interaction.user.name, "exp": 100}
+    response = requests.post(url, json=data)
+    response.json()
+    await interaction.response.send_message(response.json())
+        
 aclient.run(token_bot)
