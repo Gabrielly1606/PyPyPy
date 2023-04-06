@@ -1,26 +1,14 @@
 [
   {
-    "id": 1,
+    "id": 157208420582162433,
     "name": "Cosmos",
-    "exp": 500,
-    "level": 5
+    "exp": 90000,
+    "level": 4
   },
   {
-    "id": 2,
-    "name": "Cosmos",
-    "exp": 500,
-    "level": 5
-  },
-  {
-    "id": 3,
-    "name": "Cosmos",
-    "exp": 100,
-    "level": 1
-  },
-  {
-    "id": 4,
+    "id": 1082377697193365525,
     "name": "Gabrielly",
     "exp": 100,
-    "level": 1
+    "level": 0
   }
 ]

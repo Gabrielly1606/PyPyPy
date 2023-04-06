@@ -125,6 +125,14 @@ async def _fecharticket(interaction: discord.Interaction):
 @tree.command(guild = discord.Object(id=id_do_servidor), name="perfil",
               description='Olhar o perfil.')
 async def _getProfille(interaction: discord.Interaction):
+    url = "http://127.0.0.1:5000/api/users/" + str(interaction.user.id)
+    response = requests.get(url)
+    response.json()
+    await interaction.response.send_message(response.json())
+    
+@tree.command(guild = discord.Object(id=id_do_servidor), name="todosperfil",
+              description='Olhar o perfil de todos.')
+async def _getProfille(interaction: discord.Interaction):
     url = "http://127.0.0.1:5000/api/users"
     response = requests.get(url)
     response.json()
@@ -136,6 +144,15 @@ async def _create_user(interaction: discord.Interaction):
     url = "http://127.0.0.1:5000/api/users"
     data = {"name": interaction.user.name, "exp": 100}
     response = requests.post(url, json=data)
+    response.json()
+    await interaction.response.send_message(response.json())
+    
+@tree.command(guild = discord.Object(id=id_do_servidor), name="addexp",
+              description='Adiciona exp.')
+async def _add_exp(interaction: discord.Interaction):
+    url = "http://127.0.0.1:5000/api/users/" + str(interaction.user.id)
+    data = {"name": interaction.user.name, "exp": 100}
+    response = requests.put(url, json=data)
     response.json()
     await interaction.response.send_message(response.json())
         

@@ -1,6 +1,10 @@
 import os
 import json
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_file
+from io import BytesIO
+from PIL import Image, ImageDraw, ImageFont
+from image_generator import ImageGenerator
+from RPGUtils import RPGFormulas
 
 app = Flask(__name__)
 db_path = os.path.join(os.path.dirname(__file__), "database")
@@ -14,7 +18,7 @@ class User:
         self.level = level
 
     def to_dict(self):
-        level = self.exp // 100
+        level =  RPGFormulas.calculate_level(self.exp, 1.5, 100) #self.exp // 100
         return {"id": self.id, "name": self.name, "exp": self.exp, "level": level}
 
 # Define a function to load users from the "database"
@@ -56,6 +60,7 @@ def get_users():
 
     # Return the filtered users as JSON
     return jsonify([user.to_dict() for user in users])
+
 @app.route("/api/users/<int:user_id>", methods=["GET"])
 def get_user_by_id(user_id):
     # Load the user from the database
@@ -81,6 +86,29 @@ def load_user_by_id(user_id):
 
     # Return None if the user with the specified ID does not exist
     return None
+@app.route("/api/users/<int:user_id>", methods=["PUT"])
+def update_user(user_id):
+    # Load the user from the database
+    user = load_user_by_id(user_id)
+
+    if user:
+        # Update the user data based on the request
+        data = request.get_json()
+        if "name" in data:
+            user.name = data["name"]
+        if "exp" in data:
+            user.exp = user.exp+data["exp"]
+
+        # Save the updated user data to the database
+        users = load_users()
+        for i, u in enumerate(users):
+            if u.id == user.id:
+                users[i] = user
+                save_users(users)
+                return jsonify(user.to_dict())
+    else:
+        # Return a 404 error if the user does not exist
+        return jsonify({"error": "User not found"}), 404
 
 # Define a route to create a new user
 @app.route("/api/users", methods=["POST"])
@@ -92,5 +120,22 @@ def create_user():
     save_users(users)
     return jsonify(user.to_dict()), 201
 
+# Define a route to generate an image
+@app.route("/api/generate-image", methods=["GET"])
+def generate_image():
+    # Get the text parameter from the query string
+    text = request.args.get("text")
+
+    # Generate the image
+    image_generator = ImageGenerator(text)
+    img = image_generator.generate_image()
+
+    # Save the image to a bytes buffer
+    img_buffer = BytesIO()
+    img.save(img_buffer, format='JPEG')
+    img_buffer.seek(0)
+
+    # Return the image as a file
+    return send_file(img_buffer, mimetype='image/jpeg')
 if __name__ == "__main__":
     app.run(debug=True)
