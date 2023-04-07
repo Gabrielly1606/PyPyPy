@@ -2,13 +2,19 @@
   {
     "id": 157208420582162433,
     "name": "Cosmos",
-    "exp": 90300,
-    "level": 22
+    "exp": 500,
+    "level": 3
   },
   {
     "id": 1082377697193365525,
     "name": "Gabrielly",
     "exp": 100,
-    "level": 1
+    "level": 2
+  },
+  {
+    "id": 3,
+    "name": "Donovan",
+    "exp": 800,
+    "level": 4
   }
 ]

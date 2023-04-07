@@ -1,6 +1,7 @@
 import os
 import json
-from flask import Flask, jsonify, request, send_file
+from datetime import datetime
+from flask import Flask, jsonify, request, send_file, send_from_directory, render_template
 from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont
 from image_generator import ImageGenerator
@@ -30,11 +31,35 @@ def load_users():
         users = []
     return users
 
+class UserEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, User):
+            return {
+                'id': obj.id,
+                'name': obj.name,
+                'exp': obj.exp,
+                'level': obj.level,
+            }
+        return json.JSONEncoder.default(self, obj)
+    
 # Define a function to save users to the "database"
 def save_users(users):
     with open(os.path.join(db_path, "users.json"), "w") as f:
         data = [u.to_dict() for u in users]
         json.dump(data, f, indent=2)
+        
+#root
+@app.route("/")
+def index():
+    users = load_users()
+    userJson = {}
+    userJson = jsonify([user.to_dict() for user in users])
+    users_list = []
+    for user in users:
+        user_dict = {"id": user.id, "name": user.name, "exp": user.exp, "level": user.level}
+        users_list.append(user_dict)
+    return render_template("index.html", users=users, userJson=userJson, users_list=users_list)
+
 
 # Define a route to return all users
 @app.route("/api/users", methods=["GET"])

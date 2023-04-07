@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <h1>User Dashboard</h1>
+      <div class="flexUpToDown">
+        <div class="column">
+          <table>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Exp</th>
+              <th>Level</th>
+            </tr>
+            {% for user in users %}
+            <tr>
+              <td>{{ user.id }}</td>
+              <td>{{ user.name }}</td>
+              <td>{{ user.exp }}</td>
+              <td>{{ user.level }}</td>
+            </tr>
+            {% endfor %}
+          </table>
+        </div>
+        <div class="bar-chart">
+          <canvas id="bar-chart"></canvas>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Get the data from the Flask backend
+      const users = {{ users_list | tojson }};
+      const expData = users.map(user => user.exp);
+      const levelData = users.map(user => user.level);
+      const labels = users.map(user => user.name);
+      
+      // Create the bar chart
+      const ctx = document.getElementById('bar-chart').getContext('2d');
+      const chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Experience',
+              data: expData,
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              borderColor: 'rgba(255, 99, 132, 1)',
+              borderWidth: 1
+            },
+            {
+              label: 'Level',
+              data: levelData,
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              borderColor: 'rgba(54, 162, 235, 1)',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
