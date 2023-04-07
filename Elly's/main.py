@@ -2,7 +2,8 @@ import discord
 from Dropdown import Dropdown
 from DropdownView import DropdownView
 from CreateTicket import CreateTicket
-from CreateEmbed import CreateEmbed
+from CreateEmbed import CreateEmbed, MyCog, Modal
+
 from discord import app_commands
 from discord.ext import commands
 import json
@@ -111,7 +112,8 @@ tree = app_commands.CommandTree(aclient)
 @tree.command(guild= discord.Object(id=id_do_servidor), name = "criarmesa", description='gera uma mesa')
 @commands.has_permissions(manage_guild=True)
 async def criarmesa(interaction: discord.Integration):
-    await interaction.response.send_message("gerar aventura",view=CreateEmbed)
+    view=Modal()
+    await interaction.response.send_message("gerar aventura",view=view)
 
 @tree.command(guild = discord.Object(id=id_do_servidor), name = 'setup', description='Setup')
 @commands.has_permissions(manage_guild=True)
