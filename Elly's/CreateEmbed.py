@@ -1,6 +1,6 @@
 import discord; from discord.ext import commands
 
-class MyCog(commands.Cog):
+class MyCog(commands.Cog, discord.ui.Modal):
     def __init__(self):
         super(). __init__(title="Anuncie sua mesa!")
         
