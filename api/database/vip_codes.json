@@ -1,0 +1,30 @@
+[
+    {
+        "serial_code": "2WQVMKYZ",
+        "user_id": "2",
+        "used_at": 1681050455.4934523,
+        "duration": 2592000,
+        "reusable": null
+    },
+    {
+        "serial_code": "6Z5LAH0E",
+        "user_id": null,
+        "used_at": null,
+        "duration": 2592000,
+        "reusable": null
+    },
+    {
+        "serial_code": "DWMW4NGX",
+        "user_id": null,
+        "used_at": null,
+        "duration": 2592000,
+        "reusable": null
+    },
+    {
+        "serial_code": "VocePodeNoemarOsCodes",
+        "user_id": null,
+        "used_at": null,
+        "duration": 2592000,
+        "reusable": null
+    }
+]

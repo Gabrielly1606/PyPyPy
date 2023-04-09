@@ -7,6 +7,11 @@ from PIL import Image, ImageDraw, ImageFont
 from image_generator import ImageGenerator
 from RPGUtils import RPGFormulas
 
+from routers.register import user_registration_bp
+from routers.d20 import d20_bp
+from routers.item import item_bp
+from routers.vip import vip_bp
+
 app = Flask(__name__)
 db_path = os.path.join(os.path.dirname(__file__), "database")
 
@@ -162,5 +167,10 @@ def generate_image():
 
     # Return the image as a file
     return send_file(img_buffer, mimetype='image/jpeg')
+
+app.register_blueprint(user_registration_bp)
+app.register_blueprint(d20_bp)
+app.register_blueprint(item_bp)
+app.register_blueprint(vip_bp)
 if __name__ == "__main__":
     app.run(debug=True)
