@@ -4,7 +4,7 @@
         "user_id": "2",
         "used_at": 1681050455.4934523,
         "duration": 2592000,
-        "reusable": null
+        "reusable": false
     },
     {
         "serial_code": "6Z5LAH0E",
@@ -24,6 +24,27 @@
         "serial_code": "VocePodeNoemarOsCodes",
         "user_id": null,
         "used_at": null,
+        "duration": 2592000,
+        "reusable": null
+    },
+    {
+        "serial_code": "DY41T14T",
+        "user_id": null,
+        "used_at": null,
+        "duration": 2592000,
+        "reusable": null
+    },
+    {
+        "serial_code": "I3IM94CJ",
+        "user_id": null,
+        "used_at": null,
+        "duration": 2592000,
+        "reusable": null
+    },
+    {
+        "serial_code": "Maise",
+        "user_id": 2,
+        "used_at": 1681067457.416885,
         "duration": 2592000,
         "reusable": null
     }

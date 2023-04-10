@@ -10,6 +10,8 @@ vip_bp = Blueprint('vip', __name__)
 
 DATABASE_DIR = "database"
 DATABASE_FILENAME = "vip_codes.json"
+DATABASE_PATH = os.path.join(os.getcwd(), DATABASE_DIR, DATABASE_FILENAME)
+
 
 class VipCode:
     def __init__(self, serial_code=None, user_id=None, used_at=None, duration=2592000, reusable=False):
@@ -113,6 +115,16 @@ class VipCode:
         VipCode.write_codes(codes)
         return code.serial_code
     
+    def read_vip_codes():
+        with open(DATABASE_PATH, "r") as f:
+            return json.load(f)
+
+    # Define a helper function to write the VIP codes to the JSON file
+    def write_vip_codes(vip_codes):
+        with open(DATABASE_PATH, "w") as f:
+            json.dump(vip_codes, f, indent=4)
+
+    
 @vip_bp.route("/api/vip_code", methods=["GET"])
 def generate_vip_code():
     serial_code = request.args.get("serial_code")
@@ -135,3 +147,59 @@ def authenticate_vip_code():
     duration = request.args.get("duration", type=int, default=2592000)
     response = VipCode.authenticate(user_id=user_id, serial_code=serial_code)
     return response
+
+
+# Define a route to list all the VIP codes
+@vip_bp.route("/vip_codes", methods=["GET"])
+def vip_list():
+    vip_codes = VipCode.read_vip_codes()
+    return render_template("vip_list.html", vip_codes=vip_codes)
+
+# Define a route to create a new VIP code
+@vip_bp.route("/vip_codes/new", methods=["GET", "POST"])
+def vip_create():
+    if request.method == "POST":
+        vip_code = {
+            "code": request.form["code"],
+            "duration": int(request.form["duration"]),
+            "reusable": request.form.get("reusable") is not None,
+            "created_at": int(time.time()),
+            "used_at": None,
+            "user_id": None
+        }
+        vip_codes = VipCode.read_vip_codes()
+        vip_codes.append(vip_code)
+        VipCode.write_vip_codes(vip_codes)
+        return redirect(url_for("vip_list"))
+    else:
+        return render_template("vip_create.html")
+
+    
+# Define a route to edit a VIP code
+@vip_bp.route("/vip_codes/<string:serial_code>/edit", methods=["GET", "POST"])
+def vip_edit(serial_code):
+    vip_codes = VipCode.read_vip_codes()
+    vip_code = None
+    for code in vip_codes:
+        if code["serial_code"] == serial_code:
+            vip_code = code
+            break
+    if vip_code is None:
+        return "404"
+
+    if request.method == "POST":
+        vip_code["code"] = request.form["code"]
+        vip_code["duration"] = int(request.form["duration"])
+        vip_code["reusable"] = request.form.get("reusable") is not None
+        VipCode.write_vip_codes(vip_codes)
+        return redirect(url_for("vip_list"))
+    else:
+        return render_template("vip_edit.html", code=vip_code)
+
+# Define a route to delete a VIP code
+@vip_bp.route("/vip_codes/<int:index>/delete")
+def vip_delete(index):
+    vip_codes = VipCode.read_vip_codes()
+    vip_codes.pop(index)
+    VipCode.write_vip_codes(vip_codes)
+    return redirect(url_for("vip_list"))

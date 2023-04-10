@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VIP Codes List</title>
+  </head>
+  <body>
+    <h1>VIP Codes List</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>User ID</th>
+          <th>Created At</th>
+          <th>Duration</th>
+          <th>Reusable</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for code in vip_codes %}
+        <tr>
+          <td>{{ code.serial_code }}</td>
+          <td>{{ code.user_id }}</td>
+          <td>{{ code.created_at }}</td>
+          <td>{{ code.duration }}</td>
+          <td>{{ code.reusable }}</td>
+          <td><a href="/vip_codes/{{ code.serial_code }}/edit">Edit</a></td>
+          <td><a href="/vip_codes/{{ code.serial_code }}/delete">Delete</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="/vip_codes/new">Create new VIP code</a>
+  </body>
+</html>

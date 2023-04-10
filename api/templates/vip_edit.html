@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Edit VIP Code</h1>
+  <form method="POST">
+    <div class="form-group">
+      <label for="code">Code:</label>
+      <input type="text" id="code" name="code" value="{{ code['serial_code'] }}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="duration">Duration (in seconds):</label>
+      <input type="number" id="duration" name="duration" value="{{ code['duration'] }}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="reusable">Reusable:</label>
+      <input type="checkbox" id="reusable" name="reusable" {% if code['reusable'] %}checked{% endif %}>
+    </div>
+    <div class="form-group">
+      <label for="user_id">User ID:</label>
+      <input type="text" id="user_id" name="user_id" value="{{ code['user_id'] }}" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+  </form>
+{% endblock %}
