@@ -1,0 +1,32 @@
+{
+  "1": {
+    "name": "Pet 1",
+    "pet_id": 1,
+    "owner_id": 1,
+    "health": 100,
+    "hunger": 51,
+    "attention": 5,
+    "hygiene": 17,
+    "last_updated": 1681228606
+  },
+  "2": {
+    "name": "Pet 1",
+    "pet_id": 2,
+    "owner_id": 1,
+    "health": 100,
+    "hunger": 0,
+    "attention": 0,
+    "hygiene": 0,
+    "last_updated": 1681228188
+  },
+  "1": {
+    "name": "Pet 1",
+    "pet_id": 1,
+    "owner_id": 1,
+    "health": 100,
+    "hunger": 33,
+    "attention": 6,
+    "hygiene": 17,
+    "last_updated": 1681228635
+  }
+}
