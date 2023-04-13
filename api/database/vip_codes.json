@@ -47,5 +47,19 @@
         "used_at": 1681067457.416885,
         "duration": 2592000,
         "reusable": null
+    },
+    {
+        "serial_code": "NH1HODDF",
+        "user_id": null,
+        "used_at": null,
+        "duration": 2592000,
+        "reusable": null
+    },
+    {
+        "serial_code": "Isreal",
+        "user_id": "2",
+        "used_at": 1681317853.170538,
+        "duration": 2592000,
+        "reusable": null
     }
 ]

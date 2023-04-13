@@ -1,0 +1,116 @@
+guerreiro(a)
+mago(a)
+ladrão
+monge
+bandido
+Furry
+Eterno
+rei
+especialista
+feiticeiro(a)
+professor(a)
+lendário(a)
+destemido(a)
+temido(a)
+presidente(a)
+Deus
+Moon
+vigarista
+pai de
+shinigami
+soldado
+capitão
+herói
+pirata
+demônio
+Cavaleiro(a)
+Viking
+Samurai
+Elementalista
+Necromante
+Ilusionista
+Invocador(a)
+Alquimista
+Assaltante
+Espião(a)
+Trapaceiro(a)
+Gângster
+Templário(a)
+Gladiador(a)
+Arqueiro(a)
+Paladino(a)
+Barbaro(a)
+Druida
+Elemental
+Elemental do Ar
+Elemental da Água
+Elemental do Fogo
+Elemental da Terra
+Bruxo(a)
+Necrodruida
+Caçador(a)
+Assassino(a)
+Atirador(a)
+Engenheiro(a)
+Mercenário(a)
+Guia
+Explorador(a)
+Curandeiro(a)
+Guardião(a)
+Lutador(a)
+Monge Shaolin
+Templário das Sombras
+Paladino do Caos
+Arqueiro das Trevas
+Bruxo do Vácuo
+Necromante do Abismo
+Elemental das Trevas
+Elemental da Luz
+Elemental das Sombras
+Elemental do Caos
+Elemental da Ordem
+Cavaleiro Negro
+Cavaleiro de Prata
+Cavaleiro de Ouro
+Cavaleiro de Bronze
+Templário do Dragão
+Templário das Feras
+Templário das Plantas
+Templário do Gelo
+Templário do Fogo
+Templário da Água
+Templário da Terra
+Mestre das Armas
+Mestre dos Venenos
+Mestre do Fogo
+Mestre da Água
+Mestre da Terra
+Mestre do Ar
+Espadachim(a)
+Nobre
+Sacerdote(ssa)
+Shaman
+Sábio(a)
+Druida Lunar
+Druida Solar
+Algoz
+Caçador de Demônios
+Exorcista
+Elementalista do Raio
+Elementalista da Nuvem
+Elementalista da Tempestade
+Elementalista do Vento
+Elementalista do Gelo
+Elementalista da Neve
+Elementalista do Frio
+Elementalista do Fogo Sagrado
+Elementalista do Fogo Negro
+Elementalista do Fogo Puro
+Elementalista da Rocha
+Elementalista do Metal
+Elementalista do Oceano
+Elementalista do Vulcão
+Elementalista do Deserto
+Elementalista da Floresta
+Elementalista do Mar
+Elementalista da Cidade
