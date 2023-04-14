@@ -13,6 +13,7 @@ from routers.item import item_bp
 from routers.vip import vip_bp
 from pet.pet_example2 import pet_bp
 from destiny.destiny import destiny_bp
+from map.map import map_bp
 
 app = Flask(__name__)
 db_path = os.path.join(os.path.dirname(__file__), "database")
@@ -176,6 +177,7 @@ app.register_blueprint(item_bp)
 app.register_blueprint(vip_bp)
 app.register_blueprint(pet_bp)
 app.register_blueprint(destiny_bp)
+app.register_blueprint(map_bp)
 
 if __name__ == "__main__":
     app.run(debug=True)
