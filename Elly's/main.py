@@ -3,7 +3,7 @@ from Dropdown import Dropdown
 from DropdownView import DropdownView
 from CreateTicket import CreateTicket
 from CreateEmbed import  MyCog
-
+import discord as d
 from discord import app_commands
 from discord.ext import commands
 import json
@@ -26,6 +26,8 @@ else:
 #id_do_servidor = 1089260593954967553
 id_do_servidor = 481659634701303838
 id_cargo_atendente = 1089374159060082759
+
+
 
 class Dropdown(discord.ui.Select):
     def __init__(self):
@@ -89,9 +91,8 @@ class CreateTicket(discord.ui.View):
         await interaction.response.send_message(ephemeral=True,content=f"Criei um ticket para você! {ticket.mention}")
         await ticket.send(f"📩  **|** {interaction.user.mention} ticket criado! Envie todas as informações possíveis sobre seu caso e aguarde até que um atendente responda.\n\nApós a sua questão ser sanada, você pode usar `/fecharticket` para encerrar o atendimento!")
 
-
-
 class client(discord.Client):
+    
     def __init__(self):
         super().__init__(intents=discord.Intents.default())
         self.synced = False #Nós usamos isso para o bot não sincronizar os comandos mais de uma vez
@@ -106,9 +107,26 @@ class client(discord.Client):
             self.synced = True
         print(f"Entramos como {self.user}.") 
 
+class deletechannel(discord.Client):
+    async def deletechannel(ctx, channel: d.TextChannel):
+        mbed = d.Embed(
+            title = 'Sucesso',
+            description = 'Chat deletado com sucesso',
+        )
+        if ctx.author.guild_permission.manage_channels:
+            await ctx.send(embed=mbed)
+            await channel.delete()
+            
 aclient = client()
 
 tree = app_commands.CommandTree(aclient)
+
+@tree.command(guild= discord.Object(id=id_do_servidor), name = "deletechannel", description='Chat deletado com sucesso')
+@commands.has_permissions(manage_guild=True)
+async def deletechannel(interaction: discord.Integration):
+    view=MyCog()
+    await interaction.response.send_message("deletechannel",view=view)
+    await interaction.channel.edit(archived=True,locked=True)
 
 @tree.command(guild= discord.Object(id=id_do_servidor), name = "criarmesa", description='gera uma mesa')
 @commands.has_permissions(manage_guild=True)
@@ -120,7 +138,6 @@ async def criarmesa(interaction: discord.Integration):
 @commands.has_permissions(manage_guild=True)
 async def setup(interaction: discord.Interaction):
     await interaction.response.send_message("Mensagem do painel",view=DropdownView()) 
-
 
 @tree.command(guild = discord.Object(id=id_do_servidor), name="fecharticket",description='Feche um atendimento atual.')
 async def _fecharticket(interaction: discord.Interaction):
