@@ -9,6 +9,8 @@ from discord.ext import commands
 import json
 import os
 import requests
+from io import BytesIO
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 filename = "config.json"
 if not os.path.isfile(filename):
@@ -116,7 +118,33 @@ class deletechannel(discord.Client):
         if ctx.author.guild_permission.manage_channels:
             await ctx.send(embed=mbed)
             await channel.delete()
-            
+
+async def on_member_join(member):
+    channel = client.get_channel(1090105200267772025)
+    await channel.send(file=discord.File('Jabi.png'))
+    
+    url = requests.get(member.avatar_url)
+    avatar = Image.open(BytesIO(url.content))
+    avatar = avatar.resize((120, 120))
+    bigavatar = (avatar.size[0] * 3, avatar.size[1] * 3)
+    mascara = Image.new('L', bigavatar, 0)
+    recortar = ImageDraw.Draw(mascara)
+    recortar.ellipse((0, 0) + bigavatar, fill=255)
+    mascara = mascara.resize(avatar.size, Image.ANTIALIAS)
+    avatar.putalpha(mascara)
+
+    saida = ImageOps.fit(avatar, mascara.size, centering=(0.5, 0.5))
+    saida.save('jabi.png')
+    img = Image.open('bemvindotest.png')
+
+    fonte = ImageFont.truetype('TheWildBreathOfZelda-15Lv.ttf', 45)
+    escrever = ImageDraw.Draw(img)
+    escrever.text(xy=(210, 180), text=member.name, fill=(0, 0, 0), font=fonte)
+    img.paste(avatar, (70, 130), avatar)
+    img.save('Jabi.png')
+
+
+
 aclient = client()
 
 tree = app_commands.CommandTree(aclient)
