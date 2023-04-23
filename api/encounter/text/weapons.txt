@@ -1,0 +1,42 @@
+Espadas
+Machados
+Martelos de guerra
+Arcos
+Bestas
+Lanças
+Adagas
+Machadinhas
+Clavas
+Cajados
+Varinhas
+Bastões
+Chakrams
+Correntes com lâminas
+Foices
+Fuzis
+Pistolas
+Rifles de precisão
+Metralhadoras
+Lança-chamas
+Granadas
+Bombas de fumaça
+Bombas de veneno
+Bombas de fogo
+Bombas de gelo
+Bombas de luz
+Bombas de som
+Flechas de fogo
+Flechas de gelo
+Flechas de luz
+Flechas de veneno
+Flechas de trovão
+Flechas explosivas
+Shurikens
+Kunais
+Tonfas
+Nunchakus
+Katanas
+Wakisashis
+Tantos
+Machados duplos
+Escudos
