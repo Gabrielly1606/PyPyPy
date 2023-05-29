@@ -11,8 +11,9 @@ MAP_IMAGE = os.path.join(MAP_FOLDER, 'map.jpg')
 @map_bp.route('/api/map', methods=['GET'])
 def get_map():
     # Get player token and coordinates
+    player_count = 5
     players = []
-    for i in range(5):
+    for i in range(player_count):
         player_token = request.args.get(f'player{i+1}')
         if player_token is not None:
             x_coord = request.args.get(f'x{i+1}')

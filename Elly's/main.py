@@ -6,6 +6,7 @@ from CreateEmbed import  MyCog
 import discord as d
 from discord import app_commands
 from discord.ext import commands
+import interactions
 import json
 import os
 import requests
@@ -26,6 +27,10 @@ else:
     print(f"Retrieved token_bot value from {filename}: {token_bot}")
     
 id_do_servidor = 1089260593954967553
+<<<<<<< HEAD
+=======
+#id_do_servidor = 481659634701303838
+>>>>>>> 51608d7e934d68d3ed97ed403bcd1390a0fb488b
 id_cargo_atendente = 1089374159060082759
 
 
@@ -145,8 +150,8 @@ async def on_member_join(member):
 
 
 aclient = client()
-
 tree = app_commands.CommandTree(aclient)
+bot = interactions.Client(token=token_bot)
 
 @tree.command(guild= discord.Object(id=id_do_servidor), name = "deletechannel", description='Chat deletado com sucesso')
 @commands.has_permissions(manage_guild=True)
@@ -217,5 +222,26 @@ async def _getProfille(interaction: discord.Interaction):
     json_response = response.json()
     text = json_response["text"]
     await interaction.response.send_message(text)
+    
+@tree.command(name="mapa",
+              description='MapaRPG.',
+              guild = discord.Object(id=id_do_servidor),
+              extras=dict(params={}))
+async def _getProfille(interaction: discord.Interaction, params):
+    url = "http://127.0.0.1:5000/api/map"
+    params = {'player1': 'a', 'x1': 100, 'y1': 200,
+              'player2': 'b', 'x2': 400, 'y2': 100,
+              'player3': 'c', 'x3': 50, 'y3': 100,
+              'player4': 'tenta', 'x4': 100, 'y4': 100,}  # Example of parameters
+    request_params = {**params}
+    url = url + "?" + request_params
+    response = requests.get(url)
+    #response = requests.get(url, params=params)
+    image_bytes = response.content
+    dFile = discord.File(open('F:\\Development\\visual code\\Python\\discord\\Talya\\PyPyPy\\api\\temp.png', 'rb'))
+    await interaction.response.send_file(image_bytes, filename='mapa.png')
+    #await ctx.channel.send(File=dFile)
+    #await ctx.response.send_message(file=dFile)
+    #await interaction.response.send_file(image_bytes, filename='mapa.png')
         
 aclient.run(token_bot)

@@ -14,7 +14,11 @@ from routers.vip import vip_bp
 from pet.pet_example2 import pet_bp
 from destiny.destiny import destiny_bp
 from map.map import map_bp
+<<<<<<< HEAD
 from routers.Talya import talya_bp
+=======
+from encounter.encounter import encounter_bp
+>>>>>>> 51608d7e934d68d3ed97ed403bcd1390a0fb488b
 
 app = Flask(__name__)
 db_path = os.path.join(os.path.dirname(__file__), "database")
@@ -179,7 +183,11 @@ app.register_blueprint(vip_bp)
 app.register_blueprint(pet_bp)
 app.register_blueprint(destiny_bp)
 app.register_blueprint(map_bp)
+<<<<<<< HEAD
 app.register_blueprint(talya_bp)
+=======
+app.register_blueprint(encounter_bp)
+>>>>>>> 51608d7e934d68d3ed97ed403bcd1390a0fb488b
 
 if __name__ == "__main__":
     app.run(debug=True)
