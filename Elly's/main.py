@@ -25,8 +25,7 @@ else:
     token_bot = config["token_bot"]
     print(f"Retrieved token_bot value from {filename}: {token_bot}")
     
-#id_do_servidor = 1089260593954967553
-id_do_servidor = 481659634701303838
+id_do_servidor = 1089260593954967553
 id_cargo_atendente = 1089374159060082759
 
 
