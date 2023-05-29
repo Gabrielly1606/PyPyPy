@@ -12,6 +12,8 @@ import os
 import requests
 from io import BytesIO
 from PIL import Image, ImageDraw, ImageFont, ImageOps
+import io
+import aiohttp
 
 filename = "config.json"
 if not os.path.isfile(filename):
@@ -27,10 +29,6 @@ else:
     print(f"Retrieved token_bot value from {filename}: {token_bot}")
     
 id_do_servidor = 1089260593954967553
-<<<<<<< HEAD
-=======
-#id_do_servidor = 481659634701303838
->>>>>>> 51608d7e934d68d3ed97ed403bcd1390a0fb488b
 id_cargo_atendente = 1089374159060082759
 
 
@@ -225,9 +223,8 @@ async def _getProfille(interaction: discord.Interaction):
     
 @tree.command(name="mapa",
               description='MapaRPG.',
-              guild = discord.Object(id=id_do_servidor),
-              extras=dict(params={}))
-async def _getProfille(interaction: discord.Interaction, params):
+              guild = discord.Object(id=id_do_servidor))
+async def _getProfille(interaction: discord.Interaction):
     url = "http://127.0.0.1:5000/api/map"
     params = {'player1': 'a', 'x1': 100, 'y1': 200,
               'player2': 'b', 'x2': 400, 'y2': 100,
@@ -240,8 +237,19 @@ async def _getProfille(interaction: discord.Interaction, params):
     image_bytes = response.content
     dFile = discord.File(open('F:\\Development\\visual code\\Python\\discord\\Talya\\PyPyPy\\api\\temp.png', 'rb'))
     await interaction.response.send_file(image_bytes, filename='mapa.png')
-    #await ctx.channel.send(File=dFile)
-    #await ctx.response.send_message(file=dFile)
-    #await interaction.response.send_file(image_bytes, filename='mapa.png')
+
+@tree.command(name="ficha",
+              description='ficha.',
+              guild = discord.Object(id=id_do_servidor))
+async def _getFicha(interaction: discord.Interaction):
+    url = "http://127.0.0.1:5000/api/ficha/"
+    url = url + str(interaction.user.id)
+    print(url)
+    response = requests.get(url)
+    #response = requests.get(url, params=params)
+    
+    image_bytes = io.BytesIO(response.content)
+    dFile = discord.File(open('F:\\Development\\visual code\\Python\\discord\\Talya\\PyPyPy\\api\\temp.png', 'rb'))
+    await interaction.channel.send(file=discord.File(image_bytes, 'ficha.png'))
         
 aclient.run(token_bot)
